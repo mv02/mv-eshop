@@ -16,6 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        Product::factory()->count(100)->create()->each(function($product) {
+            $categories = Category::all()->random(rand(1, 3));
+            $product->categories()->saveMany($categories);
+            $product->image_url = 'https://picsum.photos/300/200?random=' . $product->id;
+            $product->save();
+        });
     }
 }
