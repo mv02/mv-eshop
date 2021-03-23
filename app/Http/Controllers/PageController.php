@@ -15,4 +15,11 @@ class PageController extends Controller
             'categories' => Category::orderBy('name', 'asc')->get(),
         ]);
     }
+
+    public function browseCategory (Category $category) {
+        return view('browse', [
+            'category' => $category,
+            'categories' => Category::orderBy('name', 'asc')->get(),
+        ]);
+    }
 }

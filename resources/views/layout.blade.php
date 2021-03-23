@@ -35,6 +35,9 @@
                             <i class="fas fa-shopping-cart"></i>
                         </span>
                         <span>Košík</span>
+                        <span class="badge is-bottom-left is-info {{ session()->has('totalAmount') ? '' : 'is-hidden' }}" id="cart-amount">
+                            {{ session('totalAmount') }}
+                        </span>
                     </a>
                     <a href="/login" class="button is-link">Přihlásit se</a>
                 </div>
@@ -75,10 +78,7 @@
             </aside>
         </div>
         <hr class="is-hidden-desktop">
-        <div class="column p-5 is-hidden-desktop">
-            @yield('content')
-        </div>
-        <div class="column p-6 is-hidden-touch">
+        <div class="column p-5">
             @yield('content')
         </div>
     </div>

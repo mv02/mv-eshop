@@ -26,6 +26,7 @@
         "webpack": "^5.27.0"
     },
     "dependencies": {
+        "@creativebulma/bulma-badge": "^1.0.1",
         "@fortawesome/fontawesome-free": "^5.15.3",
         "jquery": "^3.6.0"
     }
