@@ -17,4 +17,6 @@ use App\Http\Controllers\CartController;
 
 Route::get('/', [PageController::class, 'home']);
 Route::get('/nabidka/{category}', [PageController::class, 'browseCategory']);
+Route::get('/kosik', [PageController::class, 'cart']);
 Route::post('/kosik/{product}/{amount}', [CartController::class, 'addCartItem']);
+Route::get('/kosik/odstranit/{product}', [CartController::class, 'removeCartItem']);

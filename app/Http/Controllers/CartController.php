@@ -20,4 +20,14 @@ class CartController extends Controller
         session(['cart' => $cart, 'totalAmount' => $totalAmount]);
         return ['product' => $product, 'totalAmount' => $totalAmount];
     }
+
+    function removeCartItem(Product $product) {
+        if (session()->has('cart')) {
+            $cart = session('cart');
+            $totalAmount = session('totalAmount') - $cart[$product->id];
+            unset($cart[$product->id]);
+            session(['cart' => $cart, 'totalAmount' => $totalAmount]);
+        }
+        return redirect()->back();
+    }
 }

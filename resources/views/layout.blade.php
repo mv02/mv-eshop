@@ -35,7 +35,7 @@
                             <i class="fas fa-shopping-cart"></i>
                         </span>
                         <span>Košík</span>
-                        <span class="badge is-bottom-left is-info {{ session()->has('totalAmount') ? '' : 'is-hidden' }}" id="cart-amount">
+                        <span class="badge is-bottom-left is-info {{ session('totalAmount') != null ? '' : 'is-hidden' }}" id="cart-amount">
                             {{ session('totalAmount') }}
                         </span>
                     </a>
