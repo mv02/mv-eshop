@@ -22,4 +22,8 @@ class PageController extends Controller
     public function cart () {
         return view('cart');
     }
+
+    public function account () {
+        return view('account');
+    }
 }

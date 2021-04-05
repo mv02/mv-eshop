@@ -39,7 +39,11 @@
                             {{ session('subtotal') }} Kč
                         </span>
                     </a>
-                    <a href="/login" class="button is-link">Přihlásit se</a>
+                    @if (auth()->check())
+                        <a href="/logout" class="button is-danger">Odhlásit se</a>
+                    @else
+                        <a href="/login" class="button is-link">Přihlásit se</a>
+                    @endif
                 </div>
             </div>
         </div>
