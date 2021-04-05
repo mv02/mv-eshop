@@ -35,8 +35,8 @@
                             <i class="fas fa-shopping-cart"></i>
                         </span>
                         <span>Košík</span>
-                        <span class="badge is-bottom-left is-info {{ session('totalAmount') != null ? '' : 'is-hidden' }}" id="cart-amount">
-                            {{ session('totalAmount') }}
+                        <span class="badge is-bottom-left is-info {{ session('subtotal') ? '' : 'is-hidden' }}" id="cart-amount">
+                            {{ session('subtotal') }} Kč
                         </span>
                     </a>
                     <a href="/login" class="button is-link">Přihlásit se</a>

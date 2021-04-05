@@ -20,23 +20,6 @@ class PageController extends Controller
     }
 
     public function cart () {
-        $cartDetails = [];
-        if (session()->has('cart')) {
-            $priceSum = 0;
-            foreach (session('cart') as $key => $value) {
-                $product = Product::findOrFail($key);
-                $priceSum += $value * $product->price;
-                array_push($cartDetails, (object) [
-                    'product' => $product,
-                    'amount' => $value,
-                    'total_price' => $value * $product->price,
-                ]);
-            }
-        }
-
-        return view('cart', [
-            'cartDetails' => $cartDetails,
-            'priceSum' => $priceSum,
-        ]);
+        return view('cart');
     }
 }
