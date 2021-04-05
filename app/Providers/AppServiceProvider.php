@@ -31,11 +31,10 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
         
-        $categories = Schema::hasTable('categories') ? Category::orderBy('name', 'asc')->get() : null;
-        $cart = session()->has('cart') ? session('cart') : null;
-        View::share([
-            'categories' => $categories,
-            'cart' => $cart,
-        ]);
+        View::composer('*', function($view) {
+            $categories = Schema::hasTable('categories') ? Category::orderBy('name', 'asc')->get() : null;
+            $cart = session('cart') ? session('cart') : null;
+            $view->with(['cart' => $cart, 'categories' => $categories]);
+        });
     }
 }
