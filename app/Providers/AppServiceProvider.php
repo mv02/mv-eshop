@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Schema;
+use App\Models\Category;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +30,12 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') == 'production') {
             URL::forceScheme('https');
         }
+        
+        $categories = Schema::hasTable('categories') ? Category::orderBy('name', 'asc')->get() : null;
+        $cart = session()->has('cart') ? session('cart') : null;
+        View::share([
+            'categories' => $categories,
+            'cart' => $cart,
+        ]);
     }
 }

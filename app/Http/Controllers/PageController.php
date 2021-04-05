@@ -10,16 +10,12 @@ use Illuminate\Support\Facades\Http;
 class PageController extends Controller
 {
     public function home () {
-        return view('home', [
-            'featuredCategories' => Category::where('featured', true)->orderBy('name', 'asc')->get(),
-            'categories' => Category::orderBy('name', 'asc')->get(),
-        ]);
+        return view('home');
     }
 
     public function browseCategory (Category $category) {
         return view('browse', [
-            'category' => $category,
-            'categories' => Category::orderBy('name', 'asc')->get(),
+            'selectedCategory' => $category,
         ]);
     }
 
@@ -41,7 +37,6 @@ class PageController extends Controller
         return view('cart', [
             'cartDetails' => $cartDetails,
             'priceSum' => $priceSum,
-            'categories' => Category::orderBy('name', 'asc')->get(),
         ]);
     }
 }

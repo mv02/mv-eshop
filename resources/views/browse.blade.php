@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="notification is-success" id="cart-notification"></div>
-    <h1 class="title is-1">{{ $category->name }}</h1>
+    <h1 class="title is-1">{{ $selectedCategory->name }}</h1>
     <section class="columns is-multiline is-vcentered">
-        @foreach ($category->products as $product)
+        @foreach ($selectedCategory->products as $product)
             <div class="column is-one-quarter">
                 <div class="card">
                     <head class="card-header">

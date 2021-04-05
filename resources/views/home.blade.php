@@ -12,7 +12,7 @@
                 <div class="column is-one-fifth is-hidden-touch"></div>
                 <div class="column is-hidden-touch">
                     <div class="buttons is-right">
-                        @foreach ($featuredCategories as $category)
+                        @foreach ($categories->where('featured', true) as $category)
                             <a href="/nabidka/{{ $category->id }}" class="button is-rounded is-warning">
                                 @if ($category->icon)
                                     <span class="icon"><i class="fas {{ $category->icon }}"></i></span>
