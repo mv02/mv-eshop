@@ -33,5 +33,6 @@ Route::get('/logout', [LoginController::class, 'logout']);
 
 Route::group(['prefix' => '/ucet', 'middleware' => 'auth'], function() {
     Route::get('', [PageController::class, 'account']);
+    Route::post('', [PageController::class, 'account']);
     Route::get('/objednavka', [PageController::class, 'orderProcess']);
 });
