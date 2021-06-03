@@ -13,6 +13,6 @@ class Order extends Model
     protected $with = ['products'];
 
     public function products() {
-        return $this->belongsToMany('App\Models\Product');
+        return $this->belongsToMany('App\Models\Product')->withPivot('amount');
     }
 }
