@@ -11,7 +11,9 @@ use App\Models\Order;
 class PageController extends Controller
 {
     public function home () {
-        return view('home');
+        return view('home', [
+            'products' => Product::inRandomOrder()->take(12)->get(),
+        ]);
     }
 
     public function browseCategory (Category $category) {

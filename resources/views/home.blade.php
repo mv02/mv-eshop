@@ -36,7 +36,7 @@
 @endsection
 
 @section('content')
-    <div class="content has-text-centered">
-        <h1>Speciální nabídky</h1>
-    </div>
+    <div class="notification is-success" id="cart-notification"></div>
+    <h1 class="title is-1">Vybrané produkty</h1>
+    @include('products')
 @endsection
