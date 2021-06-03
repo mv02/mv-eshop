@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Http;
+use App\Models\Order;
 
 class PageController extends Controller
 {
@@ -37,5 +38,31 @@ class PageController extends Controller
         }
 
         return view('account');
+    }
+
+    public function order () {
+        if (!auth()->user()->street) {
+            session()->flash('errorMessage', 'Nejprve musíte přidat adresu.');
+            return redirect('ucet');
+        }
+
+        return view('order');
+    }
+
+    public function placeOrder () {
+        $order = new Order();
+        $order->user_id = auth()->user()->id;
+        $order->save();
+
+        $cart = session('cart');
+        $cart->each(function($item) use ($order) {
+            $product = Product::findOrFail($item->product->id);
+            $order->products()->attach($product, ['amount' => $item->amount]);
+        });
+
+        session()->forget(['cart', 'totalPrice']);
+        session()->flash('successMessage', 'Děkujeme za objednávku.');
+
+        return redirect('ucet');
     }
 }
