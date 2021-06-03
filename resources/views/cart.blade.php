@@ -2,12 +2,12 @@
 
 @section('content')
     <h1 class="title is-1">Košík</h1>
-    @if (session('cart') != null)
+    @if (session('cart') != null && session('cart')->count() > 0)
         <h3 class="subtitle">Celkem: <b>{{ number_format(session('totalPrice'), 2) }} Kč</b></h3>
     @endif
     <div class="table-container">
         <table class="table is-fullwidth is-striped">
-            @if (session('cart') != null)
+            @if (session('cart') != null && session('cart')->count() > 0)
                 <thead>
                     <th>Produkt</th>
                     <th>Množství</th>
@@ -37,7 +37,7 @@
             @endif
         </table>
     </div>
-    @if (session('cart') != null)
+    @if (session('cart') != null && session('cart')->count() > 0)
         <div class="buttons is-right">
             <a href="/objednavka" class="button is-link">Dokončit objednávku</a>
         </div>
