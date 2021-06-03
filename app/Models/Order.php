@@ -15,4 +15,13 @@ class Order extends Model
     public function products() {
         return $this->belongsToMany('App\Models\Product')->withPivot('amount');
     }
+
+    public function getTotalPriceAttribute() {
+        $sum = 0;
+        foreach ($this->products as $product) {
+            $sum += $product->price * $product->pivot->amount;
+        }
+
+        return $sum;
+    }
 }

@@ -65,4 +65,10 @@ class PageController extends Controller
 
         return redirect('ucet');
     }
+
+    public function orders () {
+        return view('orders', [
+            'orders' => Order::where('user_id', auth()->user()->id)->get(),
+        ]);
+    }
 }
