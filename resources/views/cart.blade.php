@@ -3,7 +3,7 @@
 @section('content')
     <h1 class="title is-1">Košík</h1>
     @if (session('cart') != null)
-        <h3 class="subtitle">Celkem: <b>{{ number_format(session('subtotal'), 2) }} Kč</b></h3>
+        <h3 class="subtitle">Celkem: <b>{{ number_format(session('totalPrice'), 2) }} Kč</b></h3>
     @endif
     <div class="table-container">
         <table class="table is-fullwidth is-striped">
@@ -16,14 +16,14 @@
                     <th></th>
                 </thead>
                 <tbody>
-                    @foreach ($cart as $product)
+                    @foreach ($cart as $entry)
                         <tr>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->amount }}</td>
-                            <td>{{ number_format($product->price, 2) }} Kč</td>
-                            <td>{{ number_format($product->amount * $product->price, 2) }} Kč</td>
+                            <td>{{ $entry->product->name }}</td>
+                            <td>{{ $entry->amount }}</td>
+                            <td>{{ number_format($entry->product->price, 2) }} Kč</td>
+                            <td>{{ number_format($entry->amount * $entry->product->price, 2) }} Kč</td>
                             <td>
-                                <a href="/kosik/odstranit/{{ $product->id }}" class="button is-danger is-small">
+                                <a href="/kosik/odstranit/{{ $entry->product->id }}" class="button is-danger is-small">
                                     <span class="icon">
                                         <i class="far fa-trash-alt"></i>
                                     </span>

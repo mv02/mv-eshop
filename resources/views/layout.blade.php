@@ -35,8 +35,8 @@
                             <i class="fas fa-shopping-cart"></i>
                         </span>
                         <span>Košík</span>
-                        <span class="badge is-bottom-left is-info {{ session('subtotal') ? '' : 'is-hidden' }}" id="cart-amount">
-                            {{ session('subtotal') }} Kč
+                        <span class="badge is-bottom-left is-info {{ session('totalPrice') ? '' : 'is-hidden' }}" id="cart-amount">
+                            {{ number_format(session('totalPrice'), 2) }} Kč
                         </span>
                     </a>
                     @if (auth()->check())

@@ -43,7 +43,7 @@
             let amount = $(button).closest('.control').siblings().find('.input')[0].value;
             axios.post(`/kosik/${productID}/${amount}`)
             .then(resp => {
-                $('#cart-amount').html(`${resp.data.subtotal.toFixed(2)} Kč`).removeClass('is-hidden');
+                $('#cart-amount').html(`${resp.data.totalPrice.toFixed(2)} Kč`).removeClass('is-hidden');
 
                 notificationQueue.push(`<p>${amount}x <b>${resp.data.product.name}</b></p>`);
                 $('#cart-notification').html(`<p class="title is-5 mb-2">Přidáno do košíku:</p>${notificationQueue.slice(-3).join('')}`);

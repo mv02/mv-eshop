@@ -8,26 +8,43 @@ use App\Models\Product;
 class CartController extends Controller
 {
     function addCartItem(Product $product, Request $request) {
-        $cart = session('cart') ? session('cart') : [];
-        if (isset($cart[$product->id]))
-            $cart[$product->id]->amount += $request->amount;
+        $cart = session('cart') ? session('cart') : collect([]);
+        $entry = $cart->firstWhere('product', $product);
+
+        if (!$entry) {
+            $cart->push((object) [
+                'product' => $product,
+                'amount' => $request->amount,
+                'subtotal' => $request->amount * $product->price,
+            ]);
+        }
         else {
-            $product->amount = $request->amount;
-            $cart[$product->id] = $product;
+            $entry->amount += $request->amount;
+            $entry->subtotal += $request->amount * $product->price;
+
+            $cart = $cart->filter(function($value) use ($product) {
+                return $value->product != $product;
+            });
+
+            $cart->push($entry);
         }
 
-        $subtotal = session('subtotal') ? session('subtotal') : 0;
-        $subtotal += $request->amount * $product->price;
-        session(['cart' => $cart, 'subtotal' => $subtotal]);
-        return ['product' => $product, 'subtotal' => $subtotal];
+        $totalPrice = $cart->sum('subtotal');
+        session(['cart' => $cart, 'totalPrice' => $totalPrice]);
+        return ['product' => $product, 'totalPrice' => $totalPrice];
     }
 
     function removeCartItem(Product $product) {
         if(session('cart')) {
             $cart = session('cart');
-            $subtotal = session('subtotal') - session('cart')[$product->id]->amount * $product->price;
-            unset($cart[$product->id]);
-            session(['cart' => $cart, 'subtotal' => $subtotal]);
+            $entry = $cart->firstWhere('product', $product);
+
+            $cart = $cart->filter(function($value) use ($product) {
+                return $value->product != $product;
+            });
+
+            $totalPrice = session('totalPrice') - $entry->subtotal;
+            session(['cart' => $cart, 'totalPrice' => $totalPrice]);
         }
         return redirect()->back();
     }
